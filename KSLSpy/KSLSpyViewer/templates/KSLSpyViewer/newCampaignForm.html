@@ -1,6 +1,11 @@
 <form action="{% url 'KSLSpyViewer:createNewCampaign' %}" method='post'>
 {% csrf_token %}
     <input type='text' placeholder='Enter keyword(s)...' name='keywords' required>
+    <input type='text' placeholder='Enter keyword(s)...' name='keywords' >
+    <input type='text' placeholder='Enter keyword(s)...' name='keywords' >
+    <input type='text' placeholder='Enter keyword(s)...' name='keywords' >
+    <input type='text' placeholder='Enter keyword(s)...' name='keywords' >
+    <input type='text' placeholder='Enter keyword(s)...' name='keywords' >
     <input type='checkbox' name='notify' default='on'>
     <button type='submit' name='createCampaign'>Create</button>
 </form>

@@ -61,8 +61,18 @@ def campaignNew(request):
     return render(request, 'KSLSpyViewer/newCampaignForm.html')
 
 def createNewCampaign(request):
-    print(request.POST)
-    newCampaign = Campaign(user=request.user, queryJSON=json.dumps({'keywords':request.POST['keywords']}), notify=True if request.POST['notify'] == 'on' else False)
+    qJSON = {
+        'keywords': request.POST['keywords'],
+        'lower_price': request.POST['lower_price'],
+        'higher_price': request.POST['higher_price'],
+        'zipcode': request.POST['zipcode'],
+        'distance_from_zip': request.POST['distance_from_zip'],
+        'seller_type': request.POST['seller_type'],
+        'listing_type': request.POST['listing_type'],
+        'has_photos': request.POST['has_photos'],
+        'time_since_posted': request.POST['time_since_posted'],
+    }
+    newCampaign = Campaign(user=request.user, queryJSON=json.dumps(qJSON), notify=True if request.POST['notify'] == 'on' else False)
     newCampaign.save()
     return HttpResponseRedirect(reverse('KSLSpyViewer:dashboard'))
 
