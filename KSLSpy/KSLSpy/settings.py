@@ -25,12 +25,12 @@ SECRET_KEY = 'ji*neloak=s5hp2$jdtiom!s=8j-cvcv24gcfteeb=sipdl6bc'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['144.39.246.228','localhost']
 
 # Application definition
 
 INSTALLED_APPS = [
+    'KSLSpyViewer.apps.KslspyviewerConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
