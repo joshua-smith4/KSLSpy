@@ -8,4 +8,6 @@ urlpatterns = [
     url(r'^logout/$', views.logout_view, name='logout'),
     url(r'^dashboard/$', views.dashboard, name='dashboard'),
     url(r'^validateLogin/$', views.validateLogin, name='validateLogin'),
+    url(r'^campaign/new/$', views.campaignNew, name='campaignNew'),
+    url(r'^campaign/new/create/$', views.createNewCampaign, name='createNewCampaign'),
 ]

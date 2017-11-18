@@ -7,6 +7,9 @@ class Campaign(models.Model):
     queryJSON = models.CharField(max_length=10000, default='')
     notify = models.BooleanField(default=True)
 
+    def __str__(self):
+        return self.queryJSON + " on" if self.notify else " off"
+
 class Result(models.Model):
     query = models.ForeignKey(Campaign, on_delete=models.CASCADE)
     listingURL = models.CharField(max_length=500, default='', null=False)

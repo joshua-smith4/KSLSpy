@@ -1,7 +1,9 @@
 from django.shortcuts import render, reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
+from KSLSpyViewer.models import *
 from django.contrib.auth import authenticate, login, logout
+import json
 
 # Create your views here.
 
@@ -43,15 +45,26 @@ def validateLogin(request):
 def dashboard(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('KSLSpyViewer:login_view'))
-    return render(request, 'KSLSpyViewer/dashboard.html', {'userData':request.user.id})
+    context = {
+        'userData': request.user
+    }
+    print(request.user.campaign_set.all())
+    return render(request, 'KSLSpyViewer/dashboard.html', context)
 
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse('KSLSpyViewer:login_view'))
 
+def campaignNew(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('KSLSpyViewer:login_view'))
+    return render(request, 'KSLSpyViewer/newCampaignForm.html')
 
-
-
+def createNewCampaign(request):
+    print(request.POST)
+    newCampaign = Campaign(user=request.user, queryJSON=json.dumps({'keywords':request.POST['keywords']}), notify=True if request.POST['notify'] == 'on' else False)
+    newCampaign.save()
+    return HttpResponseRedirect(reverse('KSLSpyViewer:dashboard'))
 
 
 
