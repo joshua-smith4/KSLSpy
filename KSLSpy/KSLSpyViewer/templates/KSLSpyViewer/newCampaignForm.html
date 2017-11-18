@@ -1,11 +1,165 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<header>
+	<link rel="stylesheet" type = "text/css" href="{% static 'campaign_form.css' %}">
+</header>
+
+<style type = "text/css" >
+
+.input_field {
+    width: 33%;
+    padding: 2px 20px;
+    margin: 4px 0;
+    display: inline-block;
+
+    box-sizing: border-box;
+}
+.input_labels {
+    width: 33%;
+    padding: 2px 20px;
+    margin: 4px 0;
+    display: inline-block;
+    
+    box-sizing: border-box;
+}
+
+/*form {
+    border: 3px solid #f1f1f1;
+}
+input[type=text]{
+    width: 33%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+label{
+	width: 33%;
+	display: inline-block;
+}
+
+button {
+    background-color: blue;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 33%;
+}*/
+
+/*button:hover {
+    opacity: 0.8;
+}
+
+.cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+}
+
+.imgcreator {
+    text-align: center;
+    margin: 24px 0 12px 0;
+}
+
+img.avatar {
+    width: 40%;
+    border-radius: 50%;
+}
+
+.creator {
+    padding: 16px;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens 
+@media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 100%;
+    }
+}*/
+</style>
+<body>
+
 <form action="{% url 'KSLSpyViewer:createNewCampaign' %}" method='post'>
 {% csrf_token %}
-    <input type='text' placeholder='Enter keyword(s)...' name='keywords' required>
-    <input type='text' placeholder='Enter keyword(s)...' name='keywords' >
-    <input type='text' placeholder='Enter keyword(s)...' name='keywords' >
-    <input type='text' placeholder='Enter keyword(s)...' name='keywords' >
-    <input type='text' placeholder='Enter keyword(s)...' name='keywords' >
-    <input type='text' placeholder='Enter keyword(s)...' name='keywords' >
+
+<div class="creator">
+	<div class = "input_labels"><span>KSpyL</span></div>
+	<div class = "input_labels"><span>Keyword Search</span></div>
+	<div class = "input_labels"><span>Listing Type</span></div>
+	<div class = "input_field"><button class="button searchForm-submitSearchButton ">Search</button><label><b>Notify Me</b></label>
     <input type='checkbox' name='notify' default='on'>
-    <button type='submit' name='createCampaign'>Create</button>
+    <button type='submit' name='createCampaign'>Create</button></div>
+	
+	<div class = "input_field"><input type='text' placeholder='Enter Item keyword(s)...' name='keywords' required></div>
+	
+	<div class = "input_field"><button class="searchForm-optionButton isSelected">For Sale</button><button class="searchForm-optionButton ">In Search Of</button><button class="searchForm-optionButton ">All</button></div>
+	
+	<div class = "input_labels"><span>Price Range</span></div>
+	<div class = "input_labels"><span>Seller Type</span></div>
+	<div class = "input_labels"><span>Listing Posted</span></div>
+	<div class = "input_field"><input class="searchForm-fromToInput" placeholder="From" value="" name="prices-from" autocomplete="off" type="tel"><input class="searchForm-fromToInput" placeholder="To" value="" name="prices-to" autocomplete="off" type="tel"></div>
+	
+	<div class = "input_field"><button class="searchForm-optionButton ">Private</button><button class="searchForm-optionButton ">Business</button><button class="searchForm-optionButton isSelected">All</button></div>
+	
+	<div class = "input_field"><button class="searchForm-optionButton ">1 Hour</button><button class="searchForm-optionButton ">1 Day</button><button class="searchForm-optionButton ">7 Days</button><button class="searchForm-optionButton ">30 Days</button><button class="searchForm-optionButton isSelected">All</button></div>
+
+	<div class = "input_labels"><span>Zip</span></div>
+	<div class = "input_labels"><span>Distance From</span></div>
+	<div class = "input_labels"><span>Has Photos</span></div>
+	<div class = "input_field"><input class="searchForm-textField" value="" autocomplete="off" maxlength="5" name="zip" placeholder="" type="tel"></div>
+	
+	<div class = "input_field"><select class="searchForm-selectDropdown isSelected" Selected="" name="miles"><option value="0">Exact</option><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option><option value="150">150</option><option value="200">200</option><option value="10000">201+</option></select></div>
+	
+	<div class = "input_field"><fieldset id = "has_photos">    <input type="radio" value="Has Photos" name = "has_photos">Has Photos<br>
+        <input type="radio" value="No" name = "has_photos">No<br>
+        <input type="radio" value="All" name = "has_photos">All
+    <!-- <button class="searchForm-optionButton ">Has Photos</button><button class="searchForm-optionButton ">No Photos</button><button class="searchForm-optionButton isSelected">All</button> --></fieldset></div>
+
+   
+    
+    <!-- 
+    <input type='text' placeholder='Enter keyword(s)...' name='lower_price' >
+    
+    <input type='text' placeholder='Enter keyword(s)...' name='higher_price' >
+    <label><b>zipcode</b></label>
+    <label><b>distance_from_zip</b></label>
+    <label><b>seller_type</b></label>
+
+    <input type='text' placeholder='Enter keyword(s)...' name='zipcode' >
+    <input type='text' placeholder='Enter keyword(s)...' name='distance_from_zip' >
+    <input type='text' placeholder='Enter keyword(s)...' name='seller_type' >
+    <label><b>listing_type</b></label>
+    <label><b>has_photos</b></label>
+    <label><b>time_since_posted</b></label>
+    <div class = "input_field"><button class="searchForm-optionButton isSelected">For Sale</button><button class="searchForm-optionButton ">In Search Of</button><button class="searchForm-optionButton ">All</button></div>
+    <input type='text' placeholder='Enter keyword(s)...' name='listing_type' >
+    
+    <input type='text' placeholder='Enter keyword(s)...' name='has_photos' >
+    
+    <input type='text' placeholder='Enter keyword(s)...' name='time_since_posted' >
+    <label><b>Notify Me</b></label>
+    <input type='checkbox' name='notify' default='on'>
+    <button type='submit' name='createCampaign'>Create</button> -->
+</div>
 </form>
+
+</body>
+</html>
+
+
+
+
