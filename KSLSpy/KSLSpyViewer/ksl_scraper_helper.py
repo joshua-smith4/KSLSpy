@@ -18,46 +18,60 @@ from bs4 import BeautifulSoup
 import requests
 
 def get_query_results(query_json_object):
-    #query_dict = json.loads(query_json_object)
+    query_dict = json.loads(query_json_object)
 
-    keywords = "i5 computer"
-    keywords = keywords.split(" ")
-    keywords = [x+"%20" for x in keywords]
-    keywords = "".join(keywords)
+    keywords = ""
     category = ""
-    #print keywords
-    lower_price = "100"
-    higher_price = "500"
-    zipcode = "84339"
-    distance_from_zip = "50"
+    lower_price = ""
+    higher_price = ""
+    zipcode = ""
+    distance_from_zip = ""
     seller_type = ""
     listing_type = ""
     has_photos = ""
     time_since_posted = ""
 
-
-    #handle missing query fields -keys will be present with no value
-
-    # keywords = query_dict['keywords']
+    # keywords = "i5 computer"
     # keywords = keywords.split(" ")
     # keywords = [x+"%20" for x in keywords]
     # keywords = "".join(keywords)
+    # category = "Computers"
     # #print keywords
-    # category = query_dict['category']
-    # lower_price = query_dict['lower_price']
-    # higher_price = query_dict['higher_price']
-    # zipcode = query_dict['zipcode']
-    # distance_from_zip = query_dict['distance_from_zip']
-    # seller_type = query_dict['seller_type']
-    # listing_type = query_dict['listing_type']
-    # has_photos = query_dict['has_photos']
-    # time_since_posted = query_dict['time_since_posted']
+    # lower_price = "100"
+    # higher_price = "500"
+    # zipcode = "84339"
+    # distance_from_zip = "50"
+    # seller_type = "Private"
+    # listing_type = "Sale"
+    # has_photos = "Has Photos"
+    # time_since_posted = "30DAYS"
+
+
+    #must handle missing query fields -keys will be present with no value
+    if 'keywords' in query_dict:
+        keywords = query_dict['keywords']
+        keywords = keywords.split(" ")
+        keywords = [x+"%20" for x in keywords]
+        keywords = "".join(keywords)
+    #print keywords
+    if 'category' in query_dict:
+        category = query_dict['category']
+    if 'lower_price' in query_dict:
+        lower_price = query_dict['lower_price']
+        higher_price = query_dict['higher_price']
+        zipcode = query_dict['zipcode']
+        distance_from_zip = query_dict['distance_from_zip']
+        seller_type = query_dict['seller_type']
+        listing_type = query_dict['listing_type']
+        has_photos = query_dict['has_photos']
+        time_since_posted = query_dict['time_since_posted']
+
+    print query_dict
 
     # In[57]:
 
 
-    url = "https://www.ksl.com/classifieds/search?category[]="+category+"&subCategory[]=&keyword="+keywords+"&priceFrom=%24"+lower_price+"&priceTo=%24"+higher_
-    price+"&zip="+zipcode+"&miles="+distance_from_zip+"&sellerType[]="+seller_type+"&marketType[]="+listing_type+"&hasPhotos[]="+has_photos+"&postedTimeFQ[]="+time_since_posted
+    url = "https://www.ksl.com/classifieds/search?category[]="+category+"&subCategory[]=&keyword="+keywords+"&priceFrom=%24"+lower_price+"&priceTo=%24"+higher_price+"&zip="+zipcode+"&miles="+distance_from_zip+"&sellerType[]="+seller_type+"&marketType[]="+listing_type+"&hasPhotos[]="+has_photos+"&postedTimeFQ[]="+time_since_posted
     print url
     #url = "https://www.ksl.com/classifieds/search?category[]=Computers&subCategory[]=&keyword=i5%20computer&priceFrom=%24100&priceTo=%24500&zip=84339&miles=50&sellerType[]=Private&marketType[]=Sale&hasPhotos[]=Has%20Photos&postedTimeFQ[]=30DAYS"
     #print url
@@ -77,6 +91,9 @@ def get_query_results(query_json_object):
 
     container_div = soup.find("div", { "class" : "listing-group" })
     #print container_div
+    if container_div is None:#no listings under query
+        import sys
+        sys.exit()
 
 
     # In[59]:
